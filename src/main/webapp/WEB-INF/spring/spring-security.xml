@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/security
+	http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<global-method-security pre-post-annotations="enabled"
+		secured-annotations="enabled" />
+		
+	<http use-expressions="true" auto-config="true" access-denied-page="/login?login_error=1">
+		<session-management session-fixation-protection="migrateSession"></session-management>
+		
+		<intercept-url pattern="/index**" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/delete**" access="hasRole('ROLE_USER')" />
+		
+		<form-login login-processing-url="/j_spring_security_check"
+			login-page="/login" authentication-failure-url="/login?login_error=1"
+			default-target-url="/index"/>
+		<logout logout-url="/logout" logout-success-url="/" />
+	</http>
+	
+	<beans:bean id="userDao" class="com.rakuten.products.dao.impl.UserDaoImpl" />
+	
+	<beans:bean id="securityService" class="com.rakuten.products.service.security.SecurityServiceImpl">
+		<beans:property name="userDao" ref="userDao"></beans:property>
+	</beans:bean>
+	
+	<beans:bean id="myAuthenticatorProvider" class="com.rakuten.products.service.security.MyAuthenticatorProvider">
+		<beans:property name="securityService" ref="securityService"></beans:property>
+	</beans:bean>
+	
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider ref="myAuthenticatorProvider" />
+
+	</authentication-manager>
+</beans:beans>
