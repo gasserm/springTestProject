@@ -17,7 +17,7 @@ public interface UserDao {
 	 * @return User
 	 * @throws Exception
 	 */
-	public User getUser(String username) throws Exception;
+	User getUser(String username) throws Exception;
 
 	/**
 	 * This method used to authenticate users for login
@@ -27,6 +27,6 @@ public interface UserDao {
 	 * @return Boolean
 	 * @throws Exception
 	 */
-	public boolean authenticate(String username, String password) throws Exception;
+	boolean authenticate(String username, String password) throws Exception;
 
 }
