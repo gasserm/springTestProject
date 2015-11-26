@@ -2,6 +2,8 @@ package com.rakuten.products.utils.converters;
 
 import java.util.ResourceBundle;
 
+import org.springframework.stereotype.Component;
+
 import com.rakuten.products.beans.Product;
 import com.rakuten.products.dto.ProductDto;
 
@@ -12,6 +14,7 @@ import com.rakuten.products.dto.ProductDto;
  * @author Gasser
  * 
  */
+@Component
 public class ProductConverter {
 
 	/**
@@ -21,40 +24,44 @@ public class ProductConverter {
 	 * @return
 	 */
 	public ProductDto convertProductToProduDto(Product product) {
-		String gender;
-		StringBuffer fullCategory;
-		ProductDto productDto = new ProductDto();
+		if (product != null) {
+			String gender;
+			StringBuffer fullCategory;
+			ProductDto productDto = new ProductDto();
 
-		/*
-		 * check the gender cases .. 1- if M then it is male 2- if F then it is
-		 * femal 3- if empty assume that the product should match both genders
-		 */
-		gender = product.getGender();
-		if (gender != null && gender.equalsIgnoreCase("m"))
-			productDto.setGender(getBundle().getString("add.product.form.usedby.male"));
-		else if (gender != null && gender.equalsIgnoreCase("f"))
-			productDto.setGender(getBundle().getString("add.product.form.usedby.female"));
-		else
-			productDto.setGender(getBundle().getString("add.product.form.usedby.both"));
+			/*
+			 * check the gender cases .. 1- if M then it is male 2- if F then it
+			 * is femal 3- if empty assume that the product should match both
+			 * genders
+			 */
+			gender = product.getGender();
+			if (gender != null && gender.equalsIgnoreCase("m"))
+				productDto.setGender(getBundle().getString("add.product.form.usedby.male"));
+			else if (gender != null && gender.equalsIgnoreCase("f"))
+				productDto.setGender(getBundle().getString("add.product.form.usedby.female"));
+			else
+				productDto.setGender(getBundle().getString("add.product.form.usedby.both"));
 
-		productDto.setManufacturer(product.getManufacturer().getName());
-		productDto.setDescription(product.getDescription());
-		productDto.setPrice(product.getPrice());
-		productDto.setName(product.getProductName());
-		productDto.setId(product.getProductId());
+			productDto.setManufacturer(product.getManufacturer().getName());
+			productDto.setDescription(product.getDescription());
+			productDto.setPrice(product.getPrice());
+			productDto.setName(product.getProductName());
+			productDto.setId(product.getProductId());
 
-		// set product path .. path should be the parent category if
-		// exits then the current category
-		fullCategory = new StringBuffer();
-		if (product.getCategory().getCategory() != null) {
-			fullCategory.append(product.getCategory().getCategory().getCategoryName());
-			fullCategory.append(" / ");
-		}
+			// set product path .. path should be the parent category if
+			// exits then the current category
+			fullCategory = new StringBuffer();
+			if (product.getCategory().getCategory() != null) {
+				fullCategory.append(product.getCategory().getCategory().getCategoryName());
+				fullCategory.append(" / ");
+			}
 
-		fullCategory.append(product.getCategory().getCategoryName());
-		productDto.setPath(fullCategory.toString());
+			fullCategory.append(product.getCategory().getCategoryName());
+			productDto.setPath(fullCategory.toString());
 
-		return productDto;
+			return productDto;
+		} else
+			return null;
 	}
 
 	private ResourceBundle getBundle() {

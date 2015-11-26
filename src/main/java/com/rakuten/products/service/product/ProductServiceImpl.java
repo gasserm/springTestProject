@@ -3,6 +3,8 @@ package com.rakuten.products.service.product;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.rakuten.products.beans.Category;
@@ -14,42 +16,19 @@ import com.rakuten.products.exception.ServiceException;
 import com.rakuten.products.utils.converters.ProductConverter;
 
 /**
+ * The Class ProductServiceImpl.
  * @author Gasser
- * 
  */
+@Service
 public class ProductServiceImpl implements ProductService {
 
+	/** The product dao. */
+	@Autowired
 	private ProductDao productDao;
 
+	/** The product converter. */
+	@Autowired
 	private ProductConverter productConverter;
-
-	/**
-	 * @return productConverter
-	 */
-	public ProductConverter getProductConverter() {
-		return productConverter;
-	}
-
-	/**
-	 * @param productConverter
-	 */
-	public void setProductConverter(ProductConverter productConverter) {
-		this.productConverter = productConverter;
-	}
-
-	/**
-	 * @param productDao
-	 */
-	public void setProductDao(ProductDao productDao) {
-		this.productDao = productDao;
-	}
-
-	/**
-	 * @return ProductDao
-	 */
-	public ProductDao getProductDao() {
-		return productDao;
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -130,9 +109,9 @@ public class ProductServiceImpl implements ProductService {
 	 */
 	@Override
 	@Transactional
-	public void addProduct(Product product) throws ServiceException {
+	public Product addProduct(Product product) throws ServiceException {
 		try {
-			productDao.addProduct(product);
+			return productDao.addProduct(product);
 		} catch (Exception e) {
 			throw new ServiceException("faild to add new proudct", e);
 		}

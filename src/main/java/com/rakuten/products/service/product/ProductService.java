@@ -9,52 +9,81 @@ import com.rakuten.products.dto.ProductDto;
 import com.rakuten.products.exception.ServiceException;
 
 /**
+ * The Interface ProductService.
  * @author Gasser
- *
  */
 public interface ProductService {
+
 	/**
-	 * This method used to get list of products from started index.
+	 * Gets the product list.
+	 * 
 	 * @param start
+	 *            the start
 	 * @param size
-	 * @return
+	 *            the size
+	 * @return the product list
+	 * @throws ServiceException
+	 *             the service exception
 	 */
 	public List<ProductDto> getProductList(int start, int size) throws ServiceException;
-	
+
 	/**
-	 * This method used to delete product using prod id
+	 * Delete product.
+	 * 
 	 * @param prodId
+	 *            the prod id
+	 * @throws ServiceException
+	 *             the service exception
 	 */
 	public void deleteProduct(long prodId) throws ServiceException;
-	
+
 	/**
-	 * This method used to get Product by prodId
+	 * Gets the by id.
+	 * 
 	 * @param id
-	 * @return
+	 *            the id
+	 * @return the by id
+	 * @throws ServiceException
+	 *             the service exception
 	 */
 	public Product getById(long id) throws ServiceException;
-	
+
 	/**
-	 * This methods used to update project when editing
+	 * Update product.
+	 * 
 	 * @param productDto
+	 *            the product dto
+	 * @throws ServiceException
+	 *             the service exception
 	 */
 	public void updateProduct(ProductDto productDto) throws ServiceException;
-	
+
 	/**
-	 * This method used to add new product
+	 * Adds the product.
+	 * 
 	 * @param product
+	 *            the product
+	 * @return the product
+	 * @throws ServiceException
+	 *             the service exception
 	 */
-	public void addProduct(Product product) throws ServiceException;
-	
+	public Product addProduct(Product product) throws ServiceException;
+
 	/**
-	 * This method used to get list of all categories - will be used on adding new prouct
-	 * @return
+	 * Gets the all categories.
+	 * 
+	 * @return the all categories
+	 * @throws ServiceException
+	 *             the service exception
 	 */
 	public List<Category> getAllCategories() throws ServiceException;
-	
+
 	/**
-	 * This method used to get list of all manufacturers - will be used on adding new prouct
-	 * @return
+	 * Gets the allmanufacturers.
+	 * 
+	 * @return the allmanufacturers
+	 * @throws ServiceException
+	 *             the service exception
 	 */
 	public List<Manufacturer> getAllmanufacturers() throws ServiceException;
 

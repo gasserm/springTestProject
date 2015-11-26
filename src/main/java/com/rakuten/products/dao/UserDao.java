@@ -3,30 +3,29 @@ package com.rakuten.products.dao;
 import com.rakuten.products.beans.User;
 
 /**
- * UserDao
- * 
+ * The Interface UserDao.
  * @author Gasser
- * 
  */
 public interface UserDao {
 
 	/**
-	 * This method used to get user details object by accepting username
+	 * Gets the user.
 	 * 
 	 * @param username
-	 * @return User
-	 * @throws Exception
+	 *            the username
+	 * @return the user
 	 */
-	User getUser(String username) throws Exception;
+	User getUser(String username);
 
 	/**
-	 * This method used to authenticate users for login
+	 * Authenticate.
 	 * 
 	 * @param username
+	 *            the username
 	 * @param password
-	 * @return Boolean
-	 * @throws Exception
+	 *            the password
+	 * @return true, if successful
 	 */
-	boolean authenticate(String username, String password) throws Exception;
+	boolean authenticate(String username, String password);
 
 }

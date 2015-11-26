@@ -1,31 +1,38 @@
 package com.rakuten.products.service.security;
 
+import org.springframework.security.core.AuthenticationException;
+
 import com.rakuten.products.dto.UserDto;
 import com.rakuten.products.exception.ServiceException;
 
 /**
- * This class used to hold security methods inside the application
- * 
+ * The Interface SecurityService.
  * @author Gasser
- *
  */
 public interface SecurityService {
 
 	/**
-	 * This method used to authenticate users for login
+	 * Authenticate.
+	 * 
 	 * @param username
+	 *            the username
 	 * @param password
-	 * @return Boolean
+	 *            the password
+	 * @return the boolean
 	 * @throws ServiceException
+	 *             the service exception
 	 */
-	public Boolean authenticate(String username, String password) throws ServiceException;
+	public Boolean authenticate(String username, String password) throws AuthenticationException;
 	
 	/**
-	 * This method used to get user details object by accepting username
+	 * Gets the user by username.
+	 * 
 	 * @param username
-	 * @return UserDto
+	 *            the username
+	 * @return the user by username
 	 * @throws ServiceException
+	 *             the service exception
 	 */
-	public UserDto getUserDetails(String username) throws ServiceException;
+	public UserDto getUserByUsername(String username) throws AuthenticationException;
 	
 }

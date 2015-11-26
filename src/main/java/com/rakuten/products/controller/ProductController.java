@@ -26,26 +26,29 @@ import com.rakuten.products.service.product.ProductService;
 import com.rakuten.products.service.security.RakutenUserDetails;
 
 /**
- * This controller used to handle all requests related to product ex. add, edit,
- * delete
- * 
  * @author Gasser
- * 
+ * The Class ProductController.
  */
 @Controller
 public class ProductController {
+	
+	/** The Constant VIEW_INDEX. */
 	private static final String VIEW_INDEX = "/index";
 
+	/** The product service. */
 	@Autowired
 	private ProductService productService;
 
 	/**
-	 * Used to initiate the index or home page
+	 * Inits the.
 	 * 
 	 * @param model
+	 *            the model
 	 * @param session
-	 * @return
+	 *            the session
+	 * @return the string
 	 * @throws ServiceException
+	 *             the service exception
 	 */
 	@RequestMapping(value = { "/", "/index**" }, method = RequestMethod.GET)
 	public String init(ModelMap model, HttpSession session) throws ServiceException {
@@ -82,10 +85,11 @@ public class ProductController {
 	}
 
 	/**
-	 * used to initiate the add product page
+	 * Inits the add page.
 	 * 
 	 * @param model
-	 * @return
+	 *            the model
+	 * @return the string
 	 */
 	@RequestMapping(value = { "/add" }, method = RequestMethod.GET)
 	public String initAddPage(ModelMap model) {
@@ -102,12 +106,15 @@ public class ProductController {
 	}
 
 	/**
-	 * used to handle add project action
+	 * Process add product.
 	 * 
 	 * @param model
+	 *            the model
 	 * @param product
-	 * @return
+	 *            the product
+	 * @return the string
 	 * @throws ServiceException
+	 *             the service exception
 	 */
 	@RequestMapping(value = { "/add" }, method = RequestMethod.POST)
 	public String processAddProduct(ModelMap model, @ModelAttribute Product product) throws ServiceException {
@@ -124,12 +131,15 @@ public class ProductController {
 	}
 
 	/**
-	 * used to delete product by accepting product id
+	 * Process delete product.
 	 * 
 	 * @param model
+	 *            the model
 	 * @param id
-	 * @return
+	 *            the id
+	 * @return the string
 	 * @throws ServiceException
+	 *             the service exception
 	 */
 	@RequestMapping(value = { "/delete/{id}" }, method = RequestMethod.GET)
 	public String processDeleteProduct(ModelMap model, @PathVariable Long id) throws ServiceException {
@@ -148,12 +158,15 @@ public class ProductController {
 	}
 
 	/**
-	 * used to initiate the edit page for product
+	 * Initedit.
 	 * 
 	 * @param model
+	 *            the model
 	 * @param id
-	 * @return
+	 *            the id
+	 * @return the string
 	 * @throws ServiceException
+	 *             the service exception
 	 */
 	@RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.GET)
 	public String initedit(ModelMap model, @PathVariable long id) throws ServiceException {
@@ -171,12 +184,15 @@ public class ProductController {
 	}
 
 	/**
-	 * used to save the changes made while editing product
+	 * Save changes.
 	 * 
 	 * @param model
+	 *            the model
 	 * @param request
-	 * @return
+	 *            the request
+	 * @return the string
 	 * @throws ServiceException
+	 *             the service exception
 	 */
 	@RequestMapping(value = { "/edit" }, method = RequestMethod.POST)
 	public String saveChanges(ModelMap model, HttpServletRequest request) throws ServiceException {
@@ -207,10 +223,11 @@ public class ProductController {
 	}
 
 	/**
-	 * Used to get list of products available
+	 * Gets the products.
 	 * 
-	 * @return
+	 * @return the products
 	 * @throws ServiceException
+	 *             the service exception
 	 */
 	private List<ProductDto> getproducts() throws ServiceException {
 		List<ProductDto> productDtos = productService.getProductList(0, 10);
@@ -218,9 +235,9 @@ public class ProductController {
 	}
 
 	/**
-	 * Used to get RakutenUserDetails object from SecurityContextHolder
+	 * Gets the rakuten user details.
 	 * 
-	 * @return
+	 * @return the rakuten user details
 	 */
 	private RakutenUserDetails getRakutenUserDetails() {
 		try {

@@ -1,18 +1,20 @@
 package com.rakuten.products.service.security;
 
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
 import com.rakuten.products.beans.User;
 import com.rakuten.products.dao.UserDao;
 import com.rakuten.products.dto.UserDto;
-import com.rakuten.products.exception.ServiceException;
 import com.rakuten.products.utils.converters.UserConverter;
 
 /**
- * This is the implementation class for SecurityService
- * 
+ * The Class SecurityServiceImpl.
  * @author Gasser
- * 
  */
 public class SecurityServiceImpl implements SecurityService {
+
+	/** The user dao. */
 	private UserDao userDao;
 
 	/*
@@ -20,13 +22,20 @@ public class SecurityServiceImpl implements SecurityService {
 	 * com.rakuten.products.service.security.SecurityService#authenticate(java
 	 * .lang.String, java.lang.String)
 	 */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.rakuten.products.service.security.SecurityService#authenticate(java
+	 * .lang.String, java.lang.String)
+	 */
 	@Override
-	public Boolean authenticate(String username, String password) throws ServiceException {
+	public Boolean authenticate(String username, String password) throws AuthenticationException {
 		boolean autenticated = false;
 		try {
 			autenticated = userDao.authenticate(username, password);
-		} catch (Exception e) {
-			throw new ServiceException("faild to authenticate user : " + username, e);
+		} catch (AuthenticationException e) {
+			throw e;
 		}
 
 		return autenticated;
@@ -37,21 +46,42 @@ public class SecurityServiceImpl implements SecurityService {
 	 * com.rakuten.products.service.security.SecurityService#getUserDetails(
 	 * java.lang.String)
 	 */
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * com.rakuten.products.service.security.SecurityService#getUserDetails(
+	 * java.lang.String)
+	 */
 	@Override
-	public UserDto getUserDetails(String username) throws ServiceException {
+	public UserDto getUserByUsername(String username) throws AuthenticationException {
 		try {
 			User user = userDao.getUser(username);
+			if (user == null)
+				throw new UsernameNotFoundException("couldn't get user by usernail as it doesn't exist");
+			
 			return UserConverter.convertUserToUserDto(user);
-		} catch (Exception e) {
-			throw new ServiceException("failed to get user with username : " + username, e);
+		} catch (AuthenticationException e) {
+			throw e;
 		}
 
 	}
 
+	/**
+	 * Gets the user dao.
+	 * 
+	 * @return the user dao
+	 */
 	public UserDao getUserDao() {
 		return userDao;
 	}
 
+	/**
+	 * Sets the user dao.
+	 * 
+	 * @param userDao
+	 *            the new user dao
+	 */
 	public void setUserDao(UserDao userDao) {
 		this.userDao = userDao;
 	}

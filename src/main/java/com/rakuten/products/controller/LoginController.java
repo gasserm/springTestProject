@@ -8,16 +8,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * @author Gasser
- * 
+ * The Class LoginController.
  */
 @Controller
 public class LoginController {
 
 	/**
-	 * used to handle login mapping.
+	 * Login.
 	 * 
 	 * @param error
-	 * @return
+	 *            the error
+	 * @return the model and view
 	 */
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(@RequestParam(value = "error", required = false) String error) {

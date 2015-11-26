@@ -34,6 +34,5 @@
 	
 	<authentication-manager alias="authenticationManager">
 		<authentication-provider ref="myAuthenticatorProvider" />
-
 	</authentication-manager>
 </beans:beans>
